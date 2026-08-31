@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+pydantic
+streamlit
+requests
+reportlab
+psycopg2-binary
