@@ -4,7 +4,7 @@ from datetime import datetime
 
 st.set_page_config(page_title="Panel Terraza SaaS", page_icon="🎪", layout="wide")
 
-API_URL = "http://127.0.0.1:8000/api"
+API_URL = "https://admineventos.onrender.com"
 
 st.title("🎪 Panel de Control - Terraza B2B")
 st.subheader("Cotizador e Inventario en Tiempo Real")
@@ -75,7 +75,7 @@ with col1:
             }
             
             try:
-                response = requests.post(f"{API_URL}/cotizar", json=payload)
+                response = requests.post(f"{API_URL}/api/cotizar", json=payload)
                 if response.status_code == 200:
                     data = response.json()
                     st.session_state['ultima_cotizacion'] = data
@@ -123,7 +123,7 @@ with col2:
             params.append(("montos", m))
         
         try:
-            pdf_response = requests.get(f"{API_URL}/cotizar/pdf", params=params)
+            pdf_response = requests.get(f"{API_URL}/api/cotizar/pdf", params=params)
             if pdf_response.status_code == 200:
                 st.download_button(
                     label="📥 Descargar Cotización en PDF",
@@ -137,7 +137,7 @@ with col2:
         st.write("---")
         if st.button("🔒 Confirmar Anticipo y Apartar Fecha"):
             apartar_payload = st.session_state['payload_apartar']
-            res_apartar = requests.post(f"{API_URL}/apartar", json=apartar_payload)
+            res_apartar = requests.post(f"{API_URL}/api/apartar", json=apartar_payload)
             
             if res_apartar.status_code == 200:
                 st.success(f"¡Éxito! Fecha bloqueada en la base de datos.")
